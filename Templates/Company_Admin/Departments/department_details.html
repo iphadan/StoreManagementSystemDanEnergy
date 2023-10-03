@@ -1,0 +1,197 @@
+{% extends 'Company_Admin/base.html' %} {% block admin %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1 style="color: black">Departments</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'admin-dashboard' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'departments' %}">Departments</a>
+        </li>
+        <li class="breadcrumb-item">Department Details</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section" style="margin-top: 50px">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-body">
+            <h1
+              style="
+                color: black;
+                display: flex;
+                justify-content: center;
+                margin: 20px;
+              "
+            >
+              {{selectedDepartment.departmentName}}
+            </h1>
+            <span style="color: rgb(41, 213, 41)"
+              >{{selectedDepartment.departmentName}}</span
+            >
+            {{selectedDepartment.departmentDescription}}
+            <h3 style="margin: 20px 0">
+              Department Head : {{selectedDepartment.departmentHead}}
+            </h3>
+            <h4>Members of {{selectedDepartment.departmentName}}</h4>
+            <table class="table table-striped datatable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Memeber Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">phone no.</th>
+                  <th scope="col">Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for eachMember in members %}
+                <tr>
+                  <th scope="row">{{eachMember.id}}</th>
+                  <td>{{eachMember.Full_Name}}</td>
+                  <td>{{eachMember.gender}}</td>
+                  <td>{{eachMember.phone1}}</td>
+                  <td>{{eachMember.address}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <h2 style="color: black; display: flex; justify-content: center">
+                Manage Department
+              </h2>
+              <div class="col-12">
+                <form method="post" action="{{selectedDepartment.id}}">
+                  {% csrf_token %}
+                  <label for="inputNanme4" class="form-label"
+                    ><span>Department Name</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="updatedDepartmentName"
+                    id="inputNanme4"
+                    placeholder="{{selectedDepartment.departmentName}}"
+                  />
+                  <input
+                    type="hidden"
+                    name="departmentId"
+                    value="{{selectedDepartment.id}}"
+                  />
+                  <div style="display: flex; justify-content: flex-end">
+                    <button
+                      style="margin: 10px"
+                      type="submit"
+                      class="btn btn-outline-warning"
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      data-bs-toggle="modal"
+                      data-bs-target="#verticalycentered"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </form>
+                <div class="modal fade" id="verticalycentered" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" style="color: black">
+                          Are You Sure to Delete
+                          {{selectedDepartment.departmentName}}
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <p style="color: black">
+                          This action will delete
+                          {{selectedDepartment.departmentName}} department.
+                        </p>
+                        <div class="modal-footer">
+                          <a
+                            href="{% url 'department-delete' selectedDepartment.id %}"
+                            class="btn btn-danger"
+                            >Yes</a
+                          >
+                          <a
+                            href="{% url 'department-details' selectedDepartment.id %}"
+                            class="btn btn-info"
+                            >No</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Vertically centered Modal-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <h2 style="color: black; display: flex; justify-content: center">
+                Manage Department head
+              </h2>
+              <div class="col-12">
+                <form action="{% url 'set_dept_head' %}" method="POST">
+                  {% csrf_token %}
+                  <label for="inputNanme4" class="form-label"
+                    ><span>Department Head name</span></label
+                  >
+                 
+                  <input
+                    type="hidden"
+                    name="departmentId"
+                    value="{{selectedDepartment.id}}"
+                  />
+                  <select name="dept_head" class="form-control">
+                     <option disabled value="">Select Department Head</option>
+                     {% for dep in departmentHeads %}
+                      <option value="{{dep.Full_Name}}">{{dep.Full_Name}}</option>
+                     {% endfor %}
+                  </select>
+                  <div style="display: flex; justify-content: flex-end">
+                    <button
+                      style="margin: 10px"
+                      type="submit"
+                      class="btn btn-outline-warning"
+                    >
+                      Set
+                    </button>
+                    
+                  </div>
+                </form>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      
+    </div>
+  </section>
+</main>
+
+{% endblock %}

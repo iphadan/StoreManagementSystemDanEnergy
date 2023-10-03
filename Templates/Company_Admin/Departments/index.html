@@ -1,0 +1,73 @@
+{% extends 'Company_Admin/base.html' %} {% block admin %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1 style="color: black">Departments</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'admin-dashboard' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item">Departments</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div
+        class="col-lg-12"
+        style="margin: 20px; display: flex; justify-content: right"
+      >
+        <a
+          href="{% url 'add-new-department' %}"
+          type="button"
+          class="btn btn-outline-secondary btn-lg"
+          style="margin-right: 40px"
+        >
+          <i class="bi bi-file-earmark-plus"></i>
+          <span style="margin: 0 7px"></span>Add New Departments
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <!--  -->
+      {% for depts in all_dept %}
+      <div class="col-xxl-3 col-md-6 col-sm-6">
+        <a href="{% url 'department-details' depts.pk %}">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 style="color: black" class="card-title">
+                {{depts.departmentName}}
+              </h5>
+
+              <div class="d-flex align-items-center">
+                <div
+                  class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                >
+                  <i
+                    style="color: black"
+                    class="bi bi-pc-display-horizontal"
+                  ></i>
+                </div>
+                <div class="ps-3">
+                  <h6 style="color: black">{{ depts.departmentHead }}</h6>
+                  <span class="text-muted small pt-2 ps-1"
+                    >{{depts.departmentDescription}}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+      <!--  -->
+
+      <!--  -->
+    </div>
+  </section>
+</main>
+<!-- End #main -->
+
+{% endblock %}

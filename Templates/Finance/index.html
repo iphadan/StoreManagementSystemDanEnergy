@@ -1,0 +1,75 @@
+{% extends 'Finance/F_base.html' %}
+{% block f_head  %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1 style="color: black">Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'admin-dashboard' %} " class="breadcrumb-item active">Home</a>
+          </li>
+          
+        </ol>
+      </nav>
+    </div>
+    <section class="section" style="margin-top: 50px">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-end pb-2">
+            <a href="#" class="btn btn-outline-secondary">Add Employe</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h1
+                style="
+                  color: black;
+                  display: flex;
+                  justify-content: center;
+                  margin: 20px;
+                "
+              >
+                {{selectedDepartment.departmentName}}
+              </h1>
+              <span style="color: rgb(41, 213, 41)"
+                >{{selectedDepartment.departmentName}}</span
+              >
+              {{selectedDepartment.departmentDescription}}
+             
+              <h4>Members of {{selectedDepartment.departmentName}}</h4>
+              <table class="table table-striped datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Memeber Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">phone no.</th>
+                    <th scope="col">Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for eachMember in members %}
+                  <tr>
+                    <th scope="row">{{eachMember.id}}</th>
+                    <td>{{eachMember.Full_Name}}</td>
+                    <td>{{eachMember.gender}}</td>
+                    <td>{{eachMember.phone1}}</td>
+                    <td>{{eachMember.address}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+    </section>
+  </main>
+
+{% endblock %}

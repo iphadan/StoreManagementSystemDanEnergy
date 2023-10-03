@@ -1,0 +1,248 @@
+{% extends 'Store_manager/Add_to_store/add_to_store.html' %} {% block add %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Add to Store</h5>
+
+    <form action="add_to_store1" method="POST">
+      <input type="hidden" name="res" value={{res}}>
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-lg-10 col-md-6">
+          <select
+            disabled
+            class="form-select"
+            id="floatingSelect"
+            aria-label="State"
+            name="reson"
+            value=""
+            required
+          >
+            <option>{{res}}</option>
+          </select>
+        </div>
+        <div class=" col-lg-2 text-center d-grid">
+          <button type="submit" class="btn btn-success" disabled>Next</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card recent-sales overflow-auto">
+  <div class="card-body">
+    <h5 class="card-title">{{res}} Item</h5>
+    <!-- Vertical Form -->
+    {% if res == "Purchased" %}
+    <form class="row g-3" action="add_to_store" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="res" value={{res}}>
+      <div class="col-lg-12 col-md-4 pt-2">
+        <label for="inputNanme4" class="form-label">Order Code</label>
+        <input
+          name="OrderId"
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Enter Order Code"
+        />
+      </div>
+
+      <div class="col-lg-12 col-md-6 pt-2">
+        <label for="inputState" class="form-label">Item</label>
+        <select id="inputState" class="form-select" name="item_name">
+          <option disabled value="">Choose Item</option>
+          {% for item in all_orderd %}
+          <option value="{{item.Description}}">{{item.Description}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-lg-12 col-md-6 pt-2">
+        <label for="inputState" class="form-label">Catagory</label>
+        <select id="inputState" class="form-select" name="catagory_name">
+          <option disabled value="">Choose Catagory</option>
+          {% for catagory in all_catagory %}
+          <option value="{{catagory}}">{{catagory.Catagory_Name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <!-- all_catagory -->
+      
+      <div class="col-lg-12 pt-2">
+        <label for="inputAddress" class="form-label">Qty</label>
+        <input
+        name="Qty"
+          type="text"
+          class="form-control"
+          id="product"
+          onclick="test_func()"
+          placeholder="Product Name or Devic Name"
+        />
+      </div>
+      <div class="text-center d-grid pt-2">
+        <button type="submit" class="btn btn-success">Add</button>
+        <script type="text/javascript">
+          function test_func() {
+            var product = document.getElementById("product").value;
+            if (product == "hi") {
+              console.log("ok");
+            }
+          }
+        </script>
+      </div>
+    </form>
+    <!-- Vertical Form -->
+    {% elif res == "Gift" %}
+    <form class="row g-3" action="add_to_store" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="res" value={{res}}>
+      <div class="col-12">
+        <label for="inputNanme4" class="form-label">Gifted by:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Enter Order Code"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="inputState" class="form-label">Item</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Item name"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">Qty</label>
+        <input
+          type="text"
+          class="form-control"
+          id="product"
+          onclick="test_func()"
+          placeholder="Product Name or Devic Name"
+        />
+      </div>
+      <div class="text-center d-grid">
+        <button type="submit" class="btn btn-success">Add</button>
+        <script type="text/javascript">
+          function test_func() {
+            var product = document.getElementById("product").value;
+            if (product == "hi") {
+              console.log("ok");
+            }
+          }
+        </script>
+      </div>
+    </form>
+    <!-- Vertical Form -->
+    {% elif res == "Returned Material" %}
+    <form class="row g-3" action="add_to_store" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="res" value={{res}}>
+      <div class="col-12">
+        <label for="inputNanme4" class="form-label">Returned by</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Name of Employer"
+        />
+      </div>
+      <div class="col-12">
+        <label for="inputNanme4" class="form-label">Approved by</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Approved by"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="inputState" class="form-label">Item</label>
+        <select id="inputState" class="form-select">
+          <option disabled value="">Choose Item</option>
+          {% for item in all_item %}
+          <option>{{item.item_name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">Qty</label>
+        <input
+          type="text"
+          class="form-control"
+          id="product"
+          onclick="test_func()"
+          placeholder="Product Name or Devic Name"
+        />
+      </div>
+      <div class="text-center d-grid">
+        <button type="submit" class="btn btn-success">Add</button>
+        <script type="text/javascript">
+          function test_func() {
+            var product = document.getElementById("product").value;
+            if (product == "hi") {
+              console.log("ok");
+            }
+          }
+        </script>
+      </div>
+    </form>
+    <!-- Vertical Form -->
+    {% elif res == "Other" %}
+    <form class="row g-3" action="add_to_store" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="res" value={{res}}>
+      <div class="col-12">
+        <label for="inputNanme4" class="form-label">Reseaon</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="What is Reseaon"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="inputState" class="form-label">Item</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNanme4"
+          placeholder="Item name"
+        />
+      </div>
+
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">Qty</label>
+        <input
+          type="text"
+          class="form-control"
+          id="product"
+          onclick="test_func()"
+          placeholder="Product Name or Devic Name"
+        />
+      </div>
+      <div class="text-center d-grid">
+        <button type="submit" class="btn btn-success">Add</button>
+        <script type="text/javascript">
+          function test_func() {
+            var product = document.getElementById("product").value;
+            if (product == "hi") {
+              console.log("ok");
+            }
+          }
+        </script>
+      </div>
+    </form>
+    <!-- Vertical Form -->
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
